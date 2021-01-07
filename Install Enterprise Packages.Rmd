@@ -1,0 +1,75 @@
+---
+title: "Install Enterprise Packages"
+author: "Meera Y. Patel, M.D."
+date: "`r Sys.Date()`"
+output:
+  html_notebook:
+    css: style.css
+    theme: flatly
+    highlight: kate
+    toc: yes
+    number_sections: yes
+    toc_depth: 3
+    toc_float:
+      collapsed: no
+      smooth_scroll: no
+    code_folding: show
+    df_print: paged
+    fig_height: 5
+    fig_width: 7
+    fig_caption: yes
+    includes:
+      after_body: footer.html
+  html_document:
+    toc: yes
+    toc_depth: '3'
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(comment = "##",
+                      tidy = TRUE, #`styler` to use styler:style_text() to reformat code
+                      tidy.opts = list(blank = FALSE, width.cutoff = 60),
+                      echo = TRUE,
+                      eval = TRUE,
+                      cache = FALSE,
+                      cache.path = "reports/cache/",
+                      child = NULL, #file/s to knit and then include,
+                      collapse = FALSE, #collapse all output into a single block,
+                      error = FALSE, #display error messages in doc. FALSE stops render when error is thrown
+                      fig.align = "center", #left, right, center, or default
+                      fig.width = 7, #inches
+                      fig.height = 7, #inches
+                      fig.asp=0.50, #adds whitespace around images
+                      include = TRUE, #include chunk?
+                      message = FALSE, #display code messages?
+                      tidy = TRUE, #tidy code 
+                      warning = FALSE, #include warnings?
+                      results = "markup"
+                        # "asis": passthrough results
+                        # "hide": do not display results 
+                        # "hold": put all results below all code
+                      )
+```
+  
+Enterprise Packages 
+
+```{r}
+enterprise_repos <-
+  c("teamworkR",
+    "mskExtractR",
+    "mskSetup",
+    "fantasia")
+
+i <- 0
+for (enterprise_repo in enterprise_repos) {
+  i <- i+1
+  secretary::typewrite_progress(iteration = i,
+                                total = length(enterprise_repos))
+  
+  devtools::install_git(
+    url = glue::glue("https://github.mskcc.org/patelm9/{enterprise_repo}.git")
+    )
+}
+```
+
